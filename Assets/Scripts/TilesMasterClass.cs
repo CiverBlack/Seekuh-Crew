@@ -13,4 +13,13 @@ public class TilesMasterClass : MonoBehaviour {
 	void Update () {
 		
 	}
+
+	public void Select(){
+		this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+	}
+
+	public void Deselect(){
+		this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+	}
+		
 }
