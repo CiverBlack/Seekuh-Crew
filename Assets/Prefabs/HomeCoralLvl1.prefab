@@ -85,7 +85,7 @@ GameObject:
   - component: {fileID: 33691734595823186}
   - component: {fileID: 65787581220143430}
   - component: {fileID: 23455330469098028}
-  - component: {fileID: 114722722069066968}
+  - component: {fileID: 114408293710443148}
   m_Layer: 0
   m_Name: HomeCoralLvl1
   m_TagString: Untagged
@@ -798,7 +798,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114722722069066968
+--- !u!114 &114408293710443148
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
