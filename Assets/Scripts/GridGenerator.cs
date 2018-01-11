@@ -7,10 +7,12 @@ public class GridGenerator : MonoBehaviour {
 	private TilesMasterClass[,] gridOfTiles;
 	public GameObject PrefabTile; 
 	public int size;
+	private int halfSize;
 
 	// Use this for initialization
 	void Start () {
 		gridOfTiles = new TilesMasterClass[size, size];
+		halfSize = size / 2;
 		GenerateGrid ();
 	}
 	
@@ -22,7 +24,7 @@ public class GridGenerator : MonoBehaviour {
 	void GenerateGrid(){
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
-				Vector3 posToCreateTile = new Vector3 (i, 0, j);
+				Vector3 posToCreateTile = new Vector3 (i-halfSize, 0, j-halfSize);
 				GameObject mostRecentTile = (GameObject)Instantiate (PrefabTile, posToCreateTile, Quaternion.Euler (0, 0, 0));
 				mostRecentTile.transform.parent = this.gameObject.transform;
 				mostRecentTile.name = "Tile(" + i + "/" + j + ")";
