@@ -1,35 +1,41 @@
 fileFormatVersion: 2
-guid: 994715ad17a7b45db97dd1224bd068ba
-timeCreated: 1515699792
+guid: 537f9463818a5fe45a507db811f5c4b1
+timeCreated: 1515703852
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: mitte
-    100002: oben
-    100004: //RootNode
-    100006: tang
-    100008: unten
-    100010: polySurface1
-    100012: polySurface2
-    400000: mitte
-    400002: oben
-    400004: //RootNode
-    400006: tang
-    400008: unten
-    400010: polySurface1
-    400012: polySurface2
-    2100000: lambert1
-    2300000: tang
-    2300002: polySurface1
-    3300000: tang
-    3300002: polySurface1
-    4300000: tang
-    4300002: polySurface1
-    4300004: polySurface2
+    100000: eyes
+    100002: Group62240
+    100004: joint1
+    100006: joint2
+    100008: joint3
+    100010: joint4
+    100012: joint5
+    100014: joint6
+    100016: //RootNode
+    100018: shark_body
+    400000: eyes
+    400002: Group62240
+    400004: joint1
+    400006: joint2
+    400008: joint3
+    400010: joint4
+    400012: joint5
+    400014: joint6
+    400016: //RootNode
+    400018: shark_body
+    2100000: defaultMat1
+    2100002: lambert1
+    2300000: Group62240
+    3300000: Group62240
+    4300000: Group62240
+    4300002: shark_body
+    4300004: eyes
     7400000: Take 001
     9500000: //RootNode
-    13700000: polySurface2
+    13700000: eyes
+    13700002: shark_body
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -61,7 +67,7 @@ ModelImporter:
       name: Take 001
       takeName: Take 001
       firstFrame: 1
-      lastFrame: 25
+      lastFrame: 20
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
