@@ -15,10 +15,10 @@ public class GridGenerator : MonoBehaviour {
 		halfSize = size / 2;
 		GenerateGrid ();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
 
 	void GenerateGrid(){
