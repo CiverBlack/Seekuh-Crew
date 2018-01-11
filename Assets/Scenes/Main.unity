@@ -1303,6 +1303,16 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 114719793605338792, guid: 22a34b3dc326843c89bd909d964801b4,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1385729150}
+    - target: {fileID: 114719793605338792, guid: 22a34b3dc326843c89bd909d964801b4,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Restart
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 22a34b3dc326843c89bd909d964801b4, type: 2}
   m_IsPrefabParent: 0
