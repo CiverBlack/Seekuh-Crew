@@ -11,6 +11,7 @@ public class RecourceController : MonoBehaviour {
 	public Text waterPolutionText, chalkText, planktonText, scoreText;
 	public int smallHouseCost, levelUpCost, filterCoralCost, chalkCoralCost, seeweedCost;
 	public int timerMax = 60;
+	public Image dirtWater; 
 
 
 
@@ -42,6 +43,7 @@ public class RecourceController : MonoBehaviour {
 		chalkText.text = chalk.ToString();
 		planktonText.text = plankton.ToString();
 		scoreText.text = score.ToString ();
+		dirtWater.color = new Color(1,1,1,((float)waterPolution)/100);
 	}
 
 	public bool IncreaseSmallFishNr(){
