@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class RecourceController : MonoBehaviour {
 
-	private int chalk, plankton, waterPolution, timer, chalkCoralNr, seeweedNr, filterCoralNr, score, smallFishNr, bigFishNr, smallHouseNr, bigHouseNr;
+	[SerializeField] private int chalk, plankton, waterPolution, timer, chalkCoralNr, seeweedNr, filterCoralNr, score, smallFishNr, bigFishNr, smallHouseNr, bigHouseNr;
 	public int defaultRecources, buildingRecources, cleanWaterPerBuilding;
 	public int smallToBigFishRatio = 5;
 	public Text waterPolutionText, chalkText, planktonText, scoreText;
+	public int smallHouseCost, levelUpCost, filterCoralCost, chalkCoralCost, seeweedCost;
+	public int timerMax = 60;
 
 
 
@@ -20,12 +22,13 @@ public class RecourceController : MonoBehaviour {
 		score = 0;
 		smallFishNr = 1;
 		bigFishNr = 0;
+		smallHouseNr = 1;
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
 		timer++;
-		if (timer > 60) {
+		if (timer > timerMax) {
 			timer = 0;
 			chalk += defaultRecources + (buildingRecources * chalkCoralNr*(1-(waterPolution/100)));
 			plankton += defaultRecources + (buildingRecources * seeweedNr*(1-(waterPolution/100)));
@@ -33,7 +36,7 @@ public class RecourceController : MonoBehaviour {
 			if (waterPolution < 0)
 				waterPolution = 0;
 			score += ((chalkCoralNr + seeweedNr + filterCoralNr + smallFishNr + (bigFishNr * smallToBigFishRatio) + smallHouseNr + (bigHouseNr * 2))*(1-(waterPolution/100)));
-			Debug.Log (Time.time);
+		//	Debug.Log (Time.time);
 		}
 		waterPolutionText.text = waterPolution + "%";
 		chalkText.text = chalk.ToString();
@@ -41,7 +44,7 @@ public class RecourceController : MonoBehaviour {
 		scoreText.text = score.ToString ();
 	}
 
-	bool IncreaseSmallFishNr(){
+	public bool IncreaseSmallFishNr(){
 		if (smallFishNr + (bigFishNr * smallToBigFishRatio) >= (smallHouseNr * smallToBigFishRatio) + (bigHouseNr * smallToBigFishRatio * 2)) {
 			return false;
 		} else {
@@ -49,7 +52,7 @@ public class RecourceController : MonoBehaviour {
 			return true;
 		}
 	}
-	bool IncreaseBigFishNr(){
+	public bool IncreaseBigFishNr(){
 		if (smallFishNr + (bigFishNr * smallToBigFishRatio)+ smallToBigFishRatio > (smallHouseNr * smallToBigFishRatio) + (bigHouseNr * smallToBigFishRatio * 2)) {
 			return false;
 		} else {
@@ -63,24 +66,24 @@ public class RecourceController : MonoBehaviour {
 		}
 	}
 
-	void LooseFish (int percent){
+	public void LooseFish (int percent){
 		smallFishNr *= percent / 100;
 		bigFishNr *= percent / 100;
 	}
 
-	void KillSmallFish(){
+	public void KillSmallFish(){
 		smallFishNr--;
 		if (smallFishNr < 0)
 			smallFishNr = 0;
 	}
 
-	void KillBigFish(){
+	public void KillBigFish(){
 		bigFishNr--;
 		if (bigFishNr < 0)
 			bigFishNr = 0;
 	}
 
-	void SmallHouseDestroyed(){
+	public void SmallHouseDestroyed(){
 		smallHouseNr--;
 		if (smallHouseNr < 0)
 			smallHouseNr = 0;
@@ -92,7 +95,7 @@ public class RecourceController : MonoBehaviour {
 		}
 	}
 
-	void BigHouseDestroyed(){
+	public void BigHouseDestroyed(){
 		bigHouseNr--;
 		if (bigHouseNr < 0)
 			bigHouseNr = 0;
@@ -104,55 +107,68 @@ public class RecourceController : MonoBehaviour {
 		}
 	}
 
-	bool buildSmallHouse(){
-		if (bigHouseNr < 1)
+	public bool buildSmallHouse(){
+		if (bigHouseNr < 1||chalk < smallHouseCost)
 			return false;
 		bigHouseNr--;
 		smallHouseNr += 2;
+		chalk -= smallHouseCost;
 		return true;
 	}
 
-	bool levelUpSmallHouse(){
-		if (smallHouseNr < 1)
+	public bool levelUpSmallHouse(){
+		if (smallHouseNr < 1||chalk < levelUpCost)
 			return false;
 		smallHouseNr--;
 		bigHouseNr++;
+		chalk -= levelUpCost;
 		return true;
 	}
 
-	void IncreaseWaterPolution(int amount){
+	public void IncreaseWaterPolution(int amount){
 		waterPolution += amount;
 		if (waterPolution > 100) {
 			GameOver ();
 		}
 	}
 
-	void ChalkCoralDestroyed(){
+	public void ChalkCoralDestroyed(){
 		chalkCoralNr--;
 		if (chalkCoralNr < 0)
 			chalkCoralNr = 0;
 	}
-	void SeeweedDestroyed(){
+	public void SeeweedDestroyed(){
 		seeweedNr--;
 		if (seeweedNr < 0)
 			seeweedNr = 0;
 	}
-	void FilterCoralDestroyed(){
+	public void FilterCoralDestroyed(){
 		filterCoralNr--;
 		if (filterCoralNr < 0)
 			filterCoralNr = 0;
 	}
-	void ChalkCoralBuild(){
+	public bool ChalkCoralBuild(){
+		if (chalk < chalkCoralCost)
+			return false;
 		chalkCoralNr++;
+		chalk -= chalkCoralCost;
+		return true;
 	}
-	void FilterCoralBuild(){
+	public bool FilterCoralBuild(){
+		if (chalk < filterCoralCost)
+			return false;
 		filterCoralNr++;
-
+		chalk -= filterCoralCost;
+		return true;
 	}
-	void SeeweedBuild(){
+	public bool SeeweedBuild(){
+		if (chalk < seeweedCost)
+			return false;
 		seeweedNr++;
+		chalk -= seeweedCost;
+		return true;
 	}
-	void GameOver(){
-		//TODO: SCripten
+	public void GameOver(){
+		//TODO: Scripten
 	}
 }

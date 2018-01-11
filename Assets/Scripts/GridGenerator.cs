@@ -5,7 +5,7 @@ using UnityEngine;
 public class GridGenerator : MonoBehaviour {
 
 	private TilesMasterClass[,] gridOfTiles;
-	public GameObject PrefabTile; 
+	public GameObject PrefabTile, HomeTile; 
 	public int size;
 	private int halfSize;
 
@@ -27,9 +27,15 @@ public class GridGenerator : MonoBehaviour {
 				Vector3 posToCreateTile = new Vector3 (i-halfSize, 0, j-halfSize);
 				GameObject mostRecentTile = (GameObject)Instantiate (PrefabTile, posToCreateTile, Quaternion.Euler (0, 0, 0));
 				mostRecentTile.transform.parent = this.gameObject.transform;
-				mostRecentTile.name = "Tile(" + i + "/" + j + ")";
+				mostRecentTile.name = PrefabTile.name;
 				gridOfTiles [i, j] = mostRecentTile.GetComponent<TilesMasterClass> ();
 			}
 		}
+		Vector3 position = gridOfTiles[halfSize,halfSize].gameObject.transform.position;
+		Destroy(gridOfTiles[halfSize,halfSize].gameObject);
+		GameObject newHomeTile = (GameObject)Instantiate (HomeTile, position, Quaternion.Euler (0, 0, 0));
+		newHomeTile.transform.parent = this.gameObject.transform;
+		newHomeTile.name = HomeTile.name;
+		gridOfTiles[halfSize,halfSize] = newHomeTile.GetComponent<TilesMasterClass>();
 	}
 }
