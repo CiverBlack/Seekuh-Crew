@@ -9,6 +9,10 @@ public class SelectionManager : MonoBehaviour {
 	public RecourceController recourceController;
 	public Button homeCoralButton, chalkCoralButton, seeweedButton, filterCoralButton, LevelUpButton, DestroyButton;
 	public GameObject homeCoralLvl1, homeCoralLvl2, chalkCoral, seeweed, filterCoral, emptyTile;
+	private List<TilesMasterClass> Level2Houses = new List<TilesMasterClass>();
+	private List<TilesMasterClass> AllBuildings = new List<TilesMasterClass>();
+
+
 
 	void Start(){
 		homeCoralButton.interactable = false;
@@ -98,25 +102,36 @@ public class SelectionManager : MonoBehaviour {
 	}
 
 	void homeCoralButtonClicked(){
-		if (recourceController.buildSmallHouse ())
+		if (recourceController.buildSmallHouse ()) {
+			AllBuildings.Remove(Level2Houses [0]);
+			replaceTile (Level2Houses [0], homeCoralLvl1);
+			Level2Houses.RemoveAt (0);
 			replaceTile (homeCoralLvl1);
+			AllBuildings.Add (selected);
+		}
 	}
 
 	void levelUpClicked(){
-		if (recourceController.levelUpSmallHouse()) 
+		if (recourceController.levelUpSmallHouse ()) {
 			replaceTile (homeCoralLvl2);
+			Level2Houses.Add (selected);
+			AllBuildings.Add (selected);
+		}
 	}
 	void filterCoralButtonClicked(){
 		if (recourceController.FilterCoralBuild()) 
 			replaceTile (filterCoral);
+		AllBuildings.Add (selected);
 	}
 	void seeweedButtonClicked(){
 		if (recourceController.SeeweedBuild()) 
 			replaceTile (seeweed);
+		AllBuildings.Add (selected);
 	}
 	void chalkCoralButtonClicked(){
 		if (recourceController.ChalkCoralBuild()) 
 			replaceTile (chalkCoral);
+		AllBuildings.Add (selected);
 	}
 	void replaceTile(GameObject newTile){
 		Vector3 position = selected.gameObject.transform.position;
@@ -124,29 +139,73 @@ public class SelectionManager : MonoBehaviour {
 		GameObject mostRecentTile = (GameObject)Instantiate (newTile, position, Quaternion.Euler (0, 0, 0));
 		mostRecentTile.transform.parent = this.gameObject.transform;
 		mostRecentTile.name = newTile.name;
+		mostRecentTile.GetComponent<Collider>().gameObject.GetComponent<TilesMasterClass> ().Select ();
 		selected = mostRecentTile.GetComponent<TilesMasterClass> ();
 	}
+	void replaceTile(TilesMasterClass oldTile, GameObject newTile){
+		Vector3 position = oldTile.gameObject.transform.position;
+		Destroy (oldTile.gameObject);
+		GameObject mostRecentTile = (GameObject)Instantiate (newTile, position, Quaternion.Euler (0, 0, 0));
+		mostRecentTile.transform.parent = this.gameObject.transform;
+		mostRecentTile.name = newTile.name;
+		mostRecentTile.GetComponent<Collider>().gameObject.GetComponent<TilesMasterClass> ().Deselect ();
+	} 
 	void destroyButtonClicked(){
 		Debug.Log ("Destroy" + selected.name);
 		if (selected.name.Equals ("HomeCoralLvl1")) {
 			recourceController.SmallHouseDestroyed ();
+			AllBuildings.Remove (selected);
 			replaceTile (emptyTile);
 		}
 		if (selected.name.Equals ("ChalkCoral")) {
 			recourceController.ChalkCoralDestroyed ();
+			AllBuildings.Remove (selected);
 			replaceTile (emptyTile);
 		}
 		if (selected.name.Equals ("FilterCoral")) {
 			recourceController.FilterCoralDestroyed ();
+			AllBuildings.Remove (selected);
 			replaceTile (emptyTile);
 		}
 		if (selected.name.Equals ("Seeweed")) {
 			recourceController.SeeweedDestroyed ();
+			AllBuildings.Remove (selected);
 			replaceTile (emptyTile);
 		}
 		if (selected.name.Equals ("HomeCoralLvl2")) {
 			recourceController.BigHouseDestroyed ();
+			AllBuildings.Remove (selected);
 			replaceTile (emptyTile);
+		}
+	}
+	public void destroyRandom(){
+		int random = Random.Range (0, AllBuildings.Count-1);
+		replaceTile(AllBuildings[random],emptyTile);
+		AllBuildings.Remove (AllBuildings[random]);
+		switch (AllBuildings [random].name) {
+		case "HomeCoralLvl1":
+			recourceController.SmallHouseDestroyed ();
+			break;
+
+		case "HomeCoralLvl2":
+			recourceController.BigHouseDestroyed ();
+			break;
+
+		case "ChalkCoral":
+			recourceController.ChalkCoralDestroyed ();
+			break;
+
+		case "FilterCoral":
+			recourceController.FilterCoralDestroyed ();
+			break;
+
+		case "Seeweed":
+			recourceController.SeeweedDestroyed ();
+			break;
+
+		default :
+			Debug.Log("Es scheint etwas schiefgegangen zu sein");
+			break;
 		}
 	}
 }

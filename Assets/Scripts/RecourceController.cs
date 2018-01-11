@@ -5,14 +5,16 @@ using UnityEngine;
 
 public class RecourceController : MonoBehaviour {
 
-	[SerializeField] private int chalk, plankton, waterPolution, timer, chalkCoralNr, seeweedNr, filterCoralNr, score, smallFishNr, bigFishNr, smallHouseNr, bigHouseNr;
+	private int chalk, plankton, waterPolution, timer, chalkCoralNr, seeweedNr, filterCoralNr, score, smallFishNr, bigFishNr, smallHouseNr, bigHouseNr;
 	public int defaultRecources, buildingRecources, cleanWaterPerBuilding;
 	public int smallToBigFishRatio = 5;
 	public Text waterPolutionText, chalkText, planktonText, scoreText;
 	public int smallHouseCost, levelUpCost, filterCoralCost, chalkCoralCost, seeweedCost;
 	public int timerMax = 60;
-
-
+	public Image dirtWater; 
+	private bool running = true;
+	public GameObject panelGameOver;
+	public Text textGameOver;
 
 	// Use this for initialization
 	void Start () {
@@ -24,24 +26,37 @@ public class RecourceController : MonoBehaviour {
 		bigFishNr = 0;
 		smallHouseNr = 1;
 	}
-	
+
+	public void Stop(){
+		running = false;
+	}
+	public void Restart(){
+		running = true;
+	}
+
 	// Update is called once per frame
 	void FixedUpdate () {
-		timer++;
-		if (timer > timerMax) {
-			timer = 0;
-			chalk += defaultRecources + (buildingRecources * chalkCoralNr*(1-(waterPolution/100)));
-			plankton += defaultRecources + (buildingRecources * seeweedNr*(1-(waterPolution/100)));
-			waterPolution -= (cleanWaterPerBuilding * filterCoralNr*(1-(waterPolution/100)));
-			if (waterPolution < 0)
-				waterPolution = 0;
-			score += ((chalkCoralNr + seeweedNr + filterCoralNr + smallFishNr + (bigFishNr * smallToBigFishRatio) + smallHouseNr + (bigHouseNr * 2))*(1-(waterPolution/100)));
-		//	Debug.Log (Time.time);
+		if (running){
+			timer++;
+			if (timer > timerMax) {
+				timer = 0;
+				chalk += defaultRecources + (buildingRecources * chalkCoralNr*(1-(waterPolution/100)));
+				plankton += defaultRecources + (buildingRecources * seeweedNr*(1-(waterPolution/100)));
+				waterPolution -= (cleanWaterPerBuilding * filterCoralNr*(1-(waterPolution/100)));
+				if (waterPolution < 0)
+					waterPolution = 0;
+				score += ((chalkCoralNr + seeweedNr + filterCoralNr + smallFishNr + (bigFishNr * smallToBigFishRatio) + smallHouseNr + (bigHouseNr * 2))*(1-(waterPolution/100)));
+				//	Debug.Log (Time.time);
+			}
+			waterPolutionText.text = waterPolution + "%";
+			chalkText.text = chalk.ToString();
+			planktonText.text = plankton.ToString();
+			scoreText.text = score.ToString ();
+			dirtWater.color = new Color(1,1,1,((float)waterPolution)/100);
+			if (waterPolution > 100 || bigHouseNr+smallHouseNr <= 0) {
+				GameOver ();
+			}
 		}
-		waterPolutionText.text = waterPolution + "%";
-		chalkText.text = chalk.ToString();
-		planktonText.text = plankton.ToString();
-		scoreText.text = score.ToString ();
 	}
 
 	public bool IncreaseSmallFishNr(){
@@ -127,9 +142,6 @@ public class RecourceController : MonoBehaviour {
 
 	public void IncreaseWaterPolution(int amount){
 		waterPolution += amount;
-		if (waterPolution > 100) {
-			GameOver ();
-		}
 	}
 
 	public void ChalkCoralDestroyed(){
@@ -169,6 +181,7 @@ public class RecourceController : MonoBehaviour {
 		return true;
 	}
 	public void GameOver(){
-		//TODO: Scripten
+		panelGameOver.SetActive (true);
+		textGameOver.text = "Das Korallenriff ist leider der Zerstörungswut der Menschen erlegen. Du hast " + score + " Punkte erreicht.";
 	}
 }
