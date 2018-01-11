@@ -16,11 +16,6 @@ public class GridGenerator : MonoBehaviour {
 		GenerateGrid ();
 	}
 
-	// Update is called once per frame
-	void Update () {
-
-	}
-
 	void GenerateGrid(){
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {

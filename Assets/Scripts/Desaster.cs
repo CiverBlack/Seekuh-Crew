@@ -10,7 +10,7 @@ public class Desaster : MonoBehaviour {
 	public SelectionManager manager;
 	public int minTimeTillDesaster, maxTimeTillDesaster, chanceDiver, chanceFisher, chanceOil;
 	public int timeTillDesaster;
-	private bool timerRunning=true;
+	public bool timerRunning=true;
 	private int factor = 100;
 
 	// Use this for initialization
