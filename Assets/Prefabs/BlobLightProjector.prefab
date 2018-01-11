@@ -1,0 +1,106 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1110480307018066}
+  m_IsPrefabParent: 1
+--- !u!1 &1110480307018066
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4028641785570404}
+  - component: {fileID: 119196846597939748}
+  - component: {fileID: 114390347773179394}
+  m_Layer: 0
+  m_Name: BlobLightProjector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4028641785570404
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1110480307018066}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 16.662, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &114390347773179394
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1110480307018066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6765515328f8264409179bdda999c022, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fps: 30
+  frames:
+  - {fileID: 2800000, guid: 131a1c13f1ede6641aa7e1729443fdbe, type: 3}
+  - {fileID: 2800000, guid: 4b8a3443866877247a9f586a17c0869c, type: 3}
+  - {fileID: 2800000, guid: f0a05a85346f0134592fb37d199568cb, type: 3}
+  - {fileID: 2800000, guid: 47bdd58bebb826d4a8369eadf8080b06, type: 3}
+  - {fileID: 2800000, guid: 1c97c5ab63705ba4e8f2220afc0776ad, type: 3}
+  - {fileID: 2800000, guid: 4be7a61f6e97aa94e835e0d57ddb6cab, type: 3}
+  - {fileID: 2800000, guid: 7a136818a275c5f46828f04c230e573b, type: 3}
+  - {fileID: 2800000, guid: fb4fd3e9416658a42b43cb8c7d9b209b, type: 3}
+  - {fileID: 2800000, guid: 65bae004c9b00ae468bb265b056d4c5d, type: 3}
+  - {fileID: 2800000, guid: 4b364bb6d51c07c4990c17517b863445, type: 3}
+  - {fileID: 2800000, guid: 4a4f78091330d6a4f81fc5bd8e150476, type: 3}
+  - {fileID: 2800000, guid: 5947cea94aad91f478884869f0ad9d27, type: 3}
+  - {fileID: 2800000, guid: 78ee07bfd5b6cde409b361ab7a35a48d, type: 3}
+  - {fileID: 2800000, guid: b48ddf8b1c4b97b44b3c34f21640bde5, type: 3}
+  - {fileID: 2800000, guid: 480f43579485cc2478c1e082ef0193f1, type: 3}
+  - {fileID: 2800000, guid: 6c6ed9cc81d6d0c448db057f53d5de36, type: 3}
+  - {fileID: 2800000, guid: 752b61a29d8a4204dba67c0e8fba1fd3, type: 3}
+  - {fileID: 2800000, guid: 6c77cdfcf2184fb49a4735150e2b68ac, type: 3}
+  - {fileID: 2800000, guid: 1941c9d8966164f4aac1e8736e6b86dc, type: 3}
+  - {fileID: 2800000, guid: 587dcd262b7b7324494521ff5a21df87, type: 3}
+  - {fileID: 2800000, guid: c309634e0cdcc01438c684ce346499fc, type: 3}
+  - {fileID: 2800000, guid: a24b1954d3d6b6045b9ecca07de22a09, type: 3}
+  - {fileID: 2800000, guid: 04d4bae5a43b62f43a4135809ff78747, type: 3}
+  - {fileID: 2800000, guid: ef203da747903cd47ac907ea4acc75ad, type: 3}
+  - {fileID: 2800000, guid: f319476bc4645c54b9fcd48bd379bd44, type: 3}
+  - {fileID: 2800000, guid: 3786ff4e13299654a98dc4bf90ba64ca, type: 3}
+  - {fileID: 2800000, guid: b607ba02a1a34ed40b335e87120d6ccb, type: 3}
+  - {fileID: 2800000, guid: cc902e206736c154383edab637125167, type: 3}
+  - {fileID: 2800000, guid: 0b0b531294178c042a8dfba45dcc7862, type: 3}
+  - {fileID: 2800000, guid: 364149eac7a5c304aa5961b9b9a1c5ea, type: 3}
+  - {fileID: 2800000, guid: 54514d9a697cfd94abb688740b5210e0, type: 3}
+  - {fileID: 2800000, guid: 91ae18e37b97e8a40a7cc660738b0a96, type: 3}
+--- !u!119 &119196846597939748
+Projector:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1110480307018066}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_NearClipPlane: 0.1
+  m_FarClipPlane: 50
+  m_FieldOfView: 30
+  m_AspectRatio: 1
+  m_Orthographic: 0
+  m_OrthographicSize: 2
+  m_Material: {fileID: 2100000, guid: c8c80c5b03f5c7e40b07eb2170e667e5, type: 2}
+  m_IgnoreLayers:
+    serializedVersion: 2
+    m_Bits: 0

@@ -9,6 +9,7 @@ public class SelectionManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		checkForLeftMouseClick ();
+		checkSelected ();
 	}
 	void checkForLeftMouseClick(){
 		if(Input.GetMouseButtonDown(0)){
@@ -27,6 +28,12 @@ public class SelectionManager : MonoBehaviour {
 			}
 			selected = hit.collider.gameObject.GetComponent<TilesMasterClass>();
 			selected.Select ();
+		}
+	}
+
+	void checkSelected(){
+		if (selected != null) {
+			Debug.Log(selected.name);
 		}
 	}
 }
