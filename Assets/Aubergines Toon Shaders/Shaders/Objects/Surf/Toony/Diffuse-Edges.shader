@@ -4,7 +4,7 @@ Shader "Aubergine/Objects/Surf/Toony/Diffuse-Edges" {
 	Properties {
 		_MainTex ("Base (RGB)", 2D) = "white" {}
 		_EdgeColor ("Edge Color", Color) = (0,0,0,1)
-		_EdgeWidth ("Edge width", Range (.002, 0.03)) = .005
+		_EdgeWidth ("Edge width", Range (.0001, 0.1)) = .0005
 	}
 	SubShader {
 		Tags { "RenderType"="Opaque" }
