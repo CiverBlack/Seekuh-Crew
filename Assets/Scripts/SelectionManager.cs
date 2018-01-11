@@ -179,33 +179,35 @@ public class SelectionManager : MonoBehaviour {
 		}
 	}
 	public void destroyRandom(){
-		int random = Random.Range (0, AllBuildings.Count-1);
-		replaceTile(AllBuildings[random],emptyTile);
-		AllBuildings.Remove (AllBuildings[random]);
-		switch (AllBuildings [random].name) {
-		case "HomeCoralLvl1":
-			recourceController.SmallHouseDestroyed ();
-			break;
+		if (AllBuildings.Count != 0) {
+			int random = Random.Range (0, AllBuildings.Count - 1);
+			replaceTile (AllBuildings [random], emptyTile);
+			AllBuildings.Remove (AllBuildings [random]);
+			switch (AllBuildings [random].name) {
+			case "HomeCoralLvl1":
+				recourceController.SmallHouseDestroyed ();
+				break;
 
-		case "HomeCoralLvl2":
-			recourceController.BigHouseDestroyed ();
-			break;
+			case "HomeCoralLvl2":
+				recourceController.BigHouseDestroyed ();
+				break;
 
-		case "ChalkCoral":
-			recourceController.ChalkCoralDestroyed ();
-			break;
+			case "ChalkCoral":
+				recourceController.ChalkCoralDestroyed ();
+				break;
 
-		case "FilterCoral":
-			recourceController.FilterCoralDestroyed ();
-			break;
+			case "FilterCoral":
+				recourceController.FilterCoralDestroyed ();
+				break;
 
-		case "Seeweed":
-			recourceController.SeeweedDestroyed ();
-			break;
+			case "Seeweed":
+				recourceController.SeeweedDestroyed ();
+				break;
 
-		default :
-			Debug.Log("Es scheint etwas schiefgegangen zu sein");
-			break;
+			default :
+				Debug.Log ("Es scheint etwas schiefgegangen zu sein");
+				break;
+			}
 		}
 	}
 }
