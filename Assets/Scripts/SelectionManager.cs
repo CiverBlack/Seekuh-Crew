@@ -8,11 +8,12 @@ public class SelectionManager : MonoBehaviour {
 	TilesMasterClass selected = null;
 	public RecourceController recourceController;
 	public Button homeCoralButton, chalkCoralButton, seeweedButton, filterCoralButton, LevelUpButton, DestroyButton;
-	public GameObject homeCoralLvl1, homeCoralLvl2, chalkCoral, seeweed, filterCoral, emptyTile;
+	public GameObject homeCoralLvl1, homeCoralLvl2, chalkCoral, seeweed, filterCoral, emptyTile, deadHomeCoralLvl1, deadHomeCoralLvl2, deadChalkCoral, deadSeeweed, deadFilterCoral;
 	private List<TilesMasterClass> Level2Houses = new List<TilesMasterClass>();
 	private List<TilesMasterClass> AllBuildings = new List<TilesMasterClass>();
 	private List<TilesMasterClass> inProzess = new List<TilesMasterClass>();
 	public int prozessPerSecound = 1;
+	public bool running;
 
 
 
@@ -27,8 +28,10 @@ public class SelectionManager : MonoBehaviour {
 
 	//Update is called once per frame
 	void Update () {
-		checkForLeftMouseClick ();
-		checkSelected ();
+		if (running) {
+			checkForLeftMouseClick ();
+			checkSelected ();
+		}
 	}
 	void checkForLeftMouseClick(){
 		if(Input.GetMouseButtonDown(0)){
@@ -37,33 +40,42 @@ public class SelectionManager : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
-		List<int> delete = new List<int>();
-		for (int i = 0; i < inProzess.Count; i++) {
-			//Debug.Log (inProzess [i] + " " + inProzess [i].prozess + " " + (((recourceController.bigFishNr*10)+recourceController.smallFishNr)/inProzess.Count)*prozessPerSecound);
-			inProzess [i].prozess += (((recourceController.bigFishNr*10)+recourceController.smallFishNr)/inProzess.Count)*prozessPerSecound;
-			inProzess [i].gameObject.transform.GetChild (1).GetComponent<TextMesh>().text = inProzess [i].prozess.ToString();
-			if (inProzess [i].prozess >= 100) {
-				AllBuildings.Add (inProzess [i]);
-				delete.Add (i);
-				inProzess [i].gameObject.transform.GetChild (1).gameObject.SetActive(false);
-				if (inProzess [i].name.Equals("ChalkCoral")) {
-					recourceController.ChalkCoralFinished ();
-				}
-				if (inProzess [i].name.Equals( "FilterCoral")) {
-					recourceController.FilterCoralFinished ();
-				}
-				if (inProzess [i].name.Equals("Seeweed")) {
-					recourceController.SeeweedFinished ();
-				}
-				if (inProzess [i].name.Equals("HomeCoralLvl2")) {
-					recourceController.LevelUpFinished ();
+		if (running) {
+			List<int> delete = new List<int> ();
+			for (int i = 0; i < inProzess.Count; i++) {
+				//Debug.Log (inProzess [i] + " " + inProzess [i].prozess + " " + (((recourceController.bigFishNr*10)+recourceController.smallFishNr)/inProzess.Count)*prozessPerSecound);
+				inProzess [i].prozess += (((recourceController.bigFishNr * 10) + recourceController.smallFishNr) / inProzess.Count) * prozessPerSecound;
+				inProzess [i].gameObject.transform.GetChild (1).GetComponent<TextMesh> ().text = inProzess [i].prozess.ToString ();
+				if (inProzess [i].prozess >= 100) {
+					AllBuildings.Add (inProzess [i]);
+					delete.Add (i);
+					inProzess [i].gameObject.transform.GetChild (1).gameObject.SetActive (false);
+					if (inProzess [i].name.Equals ("ChalkCoral")) {
+						recourceController.ChalkCoralFinished ();
+					}
+					if (inProzess [i].name.Equals ("FilterCoral")) {
+						recourceController.FilterCoralFinished ();
+					}
+					if (inProzess [i].name.Equals ("Seeweed")) {
+						recourceController.SeeweedFinished ();
+					}
+					if (inProzess [i].name.Equals ("HomeCoralLvl2")) {
+						recourceController.LevelUpFinished ();
+					}
 				}
 			}
+			for (int j = delete.Count - 1; j >= 0; j--) {
+				inProzess.RemoveAt (delete [j]);
+			}
+			delete.Clear ();
 		}
-		for (int j = delete.Count-1; j >= 0; j--) {
-			inProzess.RemoveAt (delete[j]);
-		}
-		delete.Clear ();
+	}
+
+	public void Stop(){
+		running = false;
+	}
+	public void Restart(){
+		running = true;
 	}
 
 	void selectionRaycast(){
@@ -190,32 +202,49 @@ public class SelectionManager : MonoBehaviour {
 		mostRecentTile.name = newTile.name;
 		mostRecentTile.GetComponent<Collider>().gameObject.GetComponent<TilesMasterClass> ().Deselect ();
 	} 
+	void replaceTile(TilesMasterClass oldTile, GameObject newTile, string name){
+		Vector3 position = oldTile.gameObject.transform.position;
+		Destroy (oldTile.gameObject);
+		GameObject mostRecentTile = (GameObject)Instantiate (newTile, position, Quaternion.Euler (0, 0, 0));
+		mostRecentTile.transform.parent = this.gameObject.transform;
+		mostRecentTile.name = name;
+		mostRecentTile.GetComponent<Collider>().gameObject.GetComponent<TilesMasterClass> ().Deselect ();
+	} 
+	void replaceTile(GameObject newTile, string name){
+		Vector3 position = selected.gameObject.transform.position;
+		Destroy (selected.gameObject);
+		GameObject mostRecentTile = (GameObject)Instantiate (newTile, position, Quaternion.Euler (0, 0, 0));
+		mostRecentTile.transform.parent = this.gameObject.transform;
+		mostRecentTile.name = name;
+		mostRecentTile.GetComponent<Collider>().gameObject.GetComponent<TilesMasterClass> ().Select ();
+		selected = mostRecentTile.GetComponent<TilesMasterClass> ();
+	} 
 	void destroyButtonClicked(){
 		Debug.Log ("Destroy" + selected.name);
 		if (selected.name.Equals ("HomeCoralLvl1")) {
 			recourceController.SmallHouseDestroyed ();
 			AllBuildings.Remove (selected);
-			replaceTile (emptyTile);
+			replaceTile (deadHomeCoralLvl1, "EmptyTile");
 		}
 		if (selected.name.Equals ("ChalkCoral")) {
 			recourceController.ChalkCoralDestroyed ();
 			AllBuildings.Remove (selected);
-			replaceTile (emptyTile);
+			replaceTile (deadChalkCoral, "EmptyTile");
 		}
 		if (selected.name.Equals ("FilterCoral")) {
 			recourceController.FilterCoralDestroyed ();
 			AllBuildings.Remove (selected);
-			replaceTile (emptyTile);
+			replaceTile (deadFilterCoral, "EmptyTile");
 		}
 		if (selected.name.Equals ("Seeweed")) {
 			recourceController.SeeweedDestroyed ();
 			AllBuildings.Remove (selected);
-			replaceTile (emptyTile);
+			replaceTile (deadSeeweed, "EmptyTile");
 		}
 		if (selected.name.Equals ("HomeCoralLvl2")) {
 			recourceController.BigHouseDestroyed ();
 			AllBuildings.Remove (selected);
-			replaceTile (emptyTile);
+			replaceTile (deadHomeCoralLvl2, "EmptyTile");
 		}
 	}
 	public void destroyRandom(){
@@ -223,22 +252,27 @@ public class SelectionManager : MonoBehaviour {
 			int random = Random.Range (0, AllBuildings.Count - 1);
 			switch (AllBuildings [random].name) {
 			case "HomeCoralLvl1":
+				replaceTile (AllBuildings [random], deadHomeCoralLvl1, "EmptyTile");
 				recourceController.SmallHouseDestroyed ();
 				break;
 
 			case "HomeCoralLvl2":
+				replaceTile (AllBuildings [random], deadHomeCoralLvl2, "EmptyTile");
 				recourceController.BigHouseDestroyed ();
 				break;
 
 			case "ChalkCoral":
+				replaceTile (AllBuildings [random], deadChalkCoral, "EmptyTile");
 				recourceController.ChalkCoralDestroyed ();
 				break;
 
-			case "FilterCoral":
+			case "FilterCoral":	
+				replaceTile (AllBuildings [random], deadFilterCoral, "EmptyTile");
 				recourceController.FilterCoralDestroyed ();
 				break;
 
 			case "Seeweed":
+				replaceTile (AllBuildings [random], deadSeeweed, "EmptyTile");
 				recourceController.SeeweedDestroyed ();
 				break;
 
@@ -246,7 +280,6 @@ public class SelectionManager : MonoBehaviour {
 				Debug.Log ("Es scheint etwas schiefgegangen zu sein");
 				break;
 			}
-			replaceTile (AllBuildings [random], emptyTile);
 			AllBuildings.Remove (AllBuildings [random]);
 		}
 	}

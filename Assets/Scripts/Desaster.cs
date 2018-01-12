@@ -18,9 +18,16 @@ public class Desaster : MonoBehaviour {
 		timeTillDesaster = Random.Range (minTimeTillDesaster*factor, maxTimeTillDesaster*factor);
 	}
 
-	public void Restart(){
+	public void RestartApplication(){
 		timerRunning = true;
-		recourceController.Restart ();
+		recourceController.Restart();
+		manager.Restart ();
+	}
+
+	public void PauseApplication(){
+		timerRunning = false;
+		recourceController.Stop ();
+		manager.Stop ();
 	}
 	
 	// Update is called once per frame
