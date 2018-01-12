@@ -11287,7 +11287,13 @@ MonoBehaviour:
   filterCoral: {fileID: 1140803308378188, guid: eaa696e7a881d4ee7b22e2804b71947f,
     type: 2}
   emptyTile: {fileID: 1262998582105236, guid: ba40a6f20fe00499e8c1d0d528262e27, type: 2}
+  deadHomeCoralLvl1: {fileID: 0}
+  deadHomeCoralLvl2: {fileID: 0}
+  deadChalkCoral: {fileID: 0}
+  deadSeeweed: {fileID: 0}
+  deadFilterCoral: {fileID: 0}
   prozessPerSecound: 1
+  running: 0
 --- !u!4 &1385729147
 Transform:
   m_ObjectHideFlags: 0
@@ -11651,7 +11657,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1157411526
+  randomSeed: 686429143
   InitialModule:
     serializedVersion: 3
     enabled: 1
