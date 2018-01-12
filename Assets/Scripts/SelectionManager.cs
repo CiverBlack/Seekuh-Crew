@@ -8,7 +8,7 @@ public class SelectionManager : MonoBehaviour {
 	TilesMasterClass selected = null;
 	public RecourceController recourceController;
 	public Button homeCoralButton, chalkCoralButton, seeweedButton, filterCoralButton, LevelUpButton, DestroyButton;
-	public GameObject homeCoralLvl1, homeCoralLvl2, chalkCoral, seeweed, filterCoral, emptyTile;
+	public GameObject homeCoralLvl1, homeCoralLvl2, chalkCoral, seeweed, filterCoral, emptyTile, deadHomeCoralLvl1, deadHomeCoralLvl2, deadChalkCoral, deadSeeweed, deadFilterCoral;
 	private List<TilesMasterClass> Level2Houses = new List<TilesMasterClass>();
 	private List<TilesMasterClass> AllBuildings = new List<TilesMasterClass>();
 	private List<TilesMasterClass> inProzess = new List<TilesMasterClass>();
@@ -190,32 +190,49 @@ public class SelectionManager : MonoBehaviour {
 		mostRecentTile.name = newTile.name;
 		mostRecentTile.GetComponent<Collider>().gameObject.GetComponent<TilesMasterClass> ().Deselect ();
 	} 
+	void replaceTile(TilesMasterClass oldTile, GameObject newTile, string name){
+		Vector3 position = oldTile.gameObject.transform.position;
+		Destroy (oldTile.gameObject);
+		GameObject mostRecentTile = (GameObject)Instantiate (newTile, position, Quaternion.Euler (0, 0, 0));
+		mostRecentTile.transform.parent = this.gameObject.transform;
+		mostRecentTile.name = name;
+		mostRecentTile.GetComponent<Collider>().gameObject.GetComponent<TilesMasterClass> ().Deselect ();
+	} 
+	void replaceTile(GameObject newTile, string name){
+		Vector3 position = selected.gameObject.transform.position;
+		Destroy (selected.gameObject);
+		GameObject mostRecentTile = (GameObject)Instantiate (newTile, position, Quaternion.Euler (0, 0, 0));
+		mostRecentTile.transform.parent = this.gameObject.transform;
+		mostRecentTile.name = name;
+		mostRecentTile.GetComponent<Collider>().gameObject.GetComponent<TilesMasterClass> ().Select ();
+		selected = mostRecentTile.GetComponent<TilesMasterClass> ();
+	} 
 	void destroyButtonClicked(){
 		Debug.Log ("Destroy" + selected.name);
 		if (selected.name.Equals ("HomeCoralLvl1")) {
 			recourceController.SmallHouseDestroyed ();
 			AllBuildings.Remove (selected);
-			replaceTile (emptyTile);
+			replaceTile (deadHomeCoralLvl1, "EmptyTile");
 		}
 		if (selected.name.Equals ("ChalkCoral")) {
 			recourceController.ChalkCoralDestroyed ();
 			AllBuildings.Remove (selected);
-			replaceTile (emptyTile);
+			replaceTile (deadChalkCoral, "EmptyTile");
 		}
 		if (selected.name.Equals ("FilterCoral")) {
 			recourceController.FilterCoralDestroyed ();
 			AllBuildings.Remove (selected);
-			replaceTile (emptyTile);
+			replaceTile (deadFilterCoral, "EmptyTile");
 		}
 		if (selected.name.Equals ("Seeweed")) {
 			recourceController.SeeweedDestroyed ();
 			AllBuildings.Remove (selected);
-			replaceTile (emptyTile);
+			replaceTile (deadSeeweed, "EmptyTile");
 		}
 		if (selected.name.Equals ("HomeCoralLvl2")) {
 			recourceController.BigHouseDestroyed ();
 			AllBuildings.Remove (selected);
-			replaceTile (emptyTile);
+			replaceTile (deadHomeCoralLvl2, "EmptyTile");
 		}
 	}
 	public void destroyRandom(){
@@ -223,22 +240,27 @@ public class SelectionManager : MonoBehaviour {
 			int random = Random.Range (0, AllBuildings.Count - 1);
 			switch (AllBuildings [random].name) {
 			case "HomeCoralLvl1":
+				replaceTile (AllBuildings [random], deadHomeCoralLvl1, "EmptyTile");
 				recourceController.SmallHouseDestroyed ();
 				break;
 
 			case "HomeCoralLvl2":
+				replaceTile (AllBuildings [random], deadHomeCoralLvl2, "EmptyTile");
 				recourceController.BigHouseDestroyed ();
 				break;
 
 			case "ChalkCoral":
+				replaceTile (AllBuildings [random], deadChalkCoral, "EmptyTile");
 				recourceController.ChalkCoralDestroyed ();
 				break;
 
-			case "FilterCoral":
+			case "FilterCoral":	
+				replaceTile (AllBuildings [random], deadFilterCoral, "EmptyTile");
 				recourceController.FilterCoralDestroyed ();
 				break;
 
 			case "Seeweed":
+				replaceTile (AllBuildings [random], deadSeeweed, "EmptyTile");
 				recourceController.SeeweedDestroyed ();
 				break;
 
@@ -246,7 +268,6 @@ public class SelectionManager : MonoBehaviour {
 				Debug.Log ("Es scheint etwas schiefgegangen zu sein");
 				break;
 			}
-			replaceTile (AllBuildings [random], emptyTile);
 			AllBuildings.Remove (AllBuildings [random]);
 		}
 	}
