@@ -13,14 +13,14 @@ public class TilesMasterClass : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	/*void Update () {
 		if (prozess >= 100) {
 			for (int i = 0; i < workers.Count; i++) {
 				workers [i].SetFree ();
 			}
 			workers.Clear ();
 		}
-	}
+	}*/
 
 	public void Select(){
 		this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
