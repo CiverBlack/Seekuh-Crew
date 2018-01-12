@@ -11,6 +11,8 @@ public class SelectionManager : MonoBehaviour {
 	public GameObject homeCoralLvl1, homeCoralLvl2, chalkCoral, seeweed, filterCoral, emptyTile;
 	private List<TilesMasterClass> Level2Houses = new List<TilesMasterClass>();
 	private List<TilesMasterClass> AllBuildings = new List<TilesMasterClass>();
+	private List<TilesMasterClass> inProzess = new List<TilesMasterClass>();
+	public int prozessPerSecound = 1;
 
 
 
@@ -33,6 +35,23 @@ public class SelectionManager : MonoBehaviour {
 			Debug.Log ("Left Mouse Button clicked");
 			selectionRaycast ();
 		}
+	}
+
+	void FixedUpdate(){
+		List<int> delete = new List<int>();
+		for (int i = 0; i < inProzess.Count; i++) {
+			inProzess [i].prozess += (((recourceController.bigFishNr*10)+recourceController.smallFishNr)/inProzess.Count)*prozessPerSecound;
+			inProzess [i].gameObject.transform.GetChild (1).GetComponent<Text>().text = inProzess [i].prozess.ToString();
+			if (inProzess [i].prozess >= 100) {
+				AllBuildings.Add (inProzess [i]);
+				delete.Add (i);
+				inProzess [i].gameObject.transform.GetChild (1).gameObject.SetActive(false);
+			}
+		}
+		for (int j = delete.Count-1; j >= 0; j--) {
+			inProzess.RemoveAt (delete[j]);
+		}
+		delete.Clear ();
 	}
 
 	void selectionRaycast(){
@@ -107,7 +126,7 @@ public class SelectionManager : MonoBehaviour {
 			replaceTile (Level2Houses [0], homeCoralLvl1);
 			Level2Houses.RemoveAt (0);
 			replaceTile (homeCoralLvl1);
-			AllBuildings.Add (selected);
+			inProzess.Add (selected);
 		}
 	}
 
@@ -115,23 +134,32 @@ public class SelectionManager : MonoBehaviour {
 		if (recourceController.levelUpSmallHouse ()) {
 			replaceTile (homeCoralLvl2);
 			Level2Houses.Add (selected);
-			AllBuildings.Add (selected);
+			inProzess.Add (selected);
 		}
 	}
 	void filterCoralButtonClicked(){
-		if (recourceController.FilterCoralBuild()) 
+		if (recourceController.FilterCoralBuild ()) {
 			replaceTile (filterCoral);
-		AllBuildings.Add (selected);
+			putInProzess (selected);
+		}
+	}
+	void putInProzess(TilesMasterClass tile){
+		tile.prozess = 0;
+		tile.gameObject.transform.GetChild (1).gameObject.SetActive(true);
+		tile.gameObject.transform.GetChild (1).GetComponent<Text>().text = tile.prozess.ToString();
+		inProzess.Add (tile);
 	}
 	void seeweedButtonClicked(){
-		if (recourceController.SeeweedBuild()) 
+		if (recourceController.SeeweedBuild ()) {
 			replaceTile (seeweed);
-		AllBuildings.Add (selected);
+			inProzess.Add (selected);
+		}
 	}
 	void chalkCoralButtonClicked(){
-		if (recourceController.ChalkCoralBuild()) 
+		if (recourceController.ChalkCoralBuild ()) {
 			replaceTile (chalkCoral);
-		AllBuildings.Add (selected);
+			inProzess.Add (selected);
+		}
 	}
 	void replaceTile(GameObject newTile){
 		Vector3 position = selected.gameObject.transform.position;

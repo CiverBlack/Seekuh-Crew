@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class TilesMasterClass : MonoBehaviour {
 
+	public int prozess = 0;
+	public List<FishBehavior> workers;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -11,7 +14,12 @@ public class TilesMasterClass : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (prozess >= 100) {
+			for (int i = 0; i < workers.Count; i++) {
+				workers [i].SetFree ();
+			}
+			workers.Clear ();
+		}
 	}
 
 	public void Select(){
