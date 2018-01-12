@@ -40,12 +40,25 @@ public class SelectionManager : MonoBehaviour {
 	void FixedUpdate(){
 		List<int> delete = new List<int>();
 		for (int i = 0; i < inProzess.Count; i++) {
+			Debug.Log (inProzess [i] + " " + inProzess [i].prozess + " " + (((recourceController.bigFishNr*10)+recourceController.smallFishNr)/inProzess.Count)*prozessPerSecound);
 			inProzess [i].prozess += (((recourceController.bigFishNr*10)+recourceController.smallFishNr)/inProzess.Count)*prozessPerSecound;
-			inProzess [i].gameObject.transform.GetChild (1).GetComponent<Text>().text = inProzess [i].prozess.ToString();
+			inProzess [i].gameObject.transform.GetChild (1).GetComponent<TextMesh>().text = inProzess [i].prozess.ToString();
 			if (inProzess [i].prozess >= 100) {
 				AllBuildings.Add (inProzess [i]);
 				delete.Add (i);
 				inProzess [i].gameObject.transform.GetChild (1).gameObject.SetActive(false);
+				if (inProzess [i].name.Equals("ChalkCoral")) {
+					recourceController.ChalkCoralFinished ();
+				}
+				if (inProzess [i].name.Equals( "FilterCoral")) {
+					recourceController.FilterCoralFinished ();
+				}
+				if (inProzess [i].name.Equals("Seeweed")) {
+					recourceController.SeeweedFinished ();
+				}
+				if (inProzess [i].name.Equals("HomeCoralLvl2")) {
+					recourceController.LevelUpFinished ();
+				}
 			}
 		}
 		for (int j = delete.Count-1; j >= 0; j--) {
@@ -126,7 +139,7 @@ public class SelectionManager : MonoBehaviour {
 			replaceTile (Level2Houses [0], homeCoralLvl1);
 			Level2Houses.RemoveAt (0);
 			replaceTile (homeCoralLvl1);
-			inProzess.Add (selected);
+			putInProzess (selected);
 		}
 	}
 
@@ -134,7 +147,7 @@ public class SelectionManager : MonoBehaviour {
 		if (recourceController.levelUpSmallHouse ()) {
 			replaceTile (homeCoralLvl2);
 			Level2Houses.Add (selected);
-			inProzess.Add (selected);
+			putInProzess (selected);
 		}
 	}
 	void filterCoralButtonClicked(){
@@ -146,19 +159,19 @@ public class SelectionManager : MonoBehaviour {
 	void putInProzess(TilesMasterClass tile){
 		tile.prozess = 0;
 		tile.gameObject.transform.GetChild (1).gameObject.SetActive(true);
-		tile.gameObject.transform.GetChild (1).GetComponent<Text>().text = tile.prozess.ToString();
+		tile.gameObject.transform.GetChild (1).GetComponent<TextMesh>().text = tile.prozess.ToString();
 		inProzess.Add (tile);
 	}
 	void seeweedButtonClicked(){
 		if (recourceController.SeeweedBuild ()) {
 			replaceTile (seeweed);
-			inProzess.Add (selected);
+			putInProzess (selected);
 		}
 	}
 	void chalkCoralButtonClicked(){
 		if (recourceController.ChalkCoralBuild ()) {
 			replaceTile (chalkCoral);
-			inProzess.Add (selected);
+			putInProzess (selected);
 		}
 	}
 	void replaceTile(GameObject newTile){

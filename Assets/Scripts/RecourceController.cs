@@ -9,7 +9,7 @@ public class RecourceController : MonoBehaviour {
 	public int defaultRecources, buildingRecources, cleanWaterPerBuilding;
 	public int smallToBigFishRatio = 5;
 	public Text waterPolutionText, chalkText, planktonText, scoreText;
-	public int smallHouseCost, levelUpCost, filterCoralCost, chalkCoralCost, seeweedCost;
+	public int smallHouseCost, levelUpCost, filterCoralCost, chalkCoralCost, seeweedCost, smallFishCost;
 	public int timerMax = 60;
 	public Image dirtWater; 
 	private bool running = true;
@@ -17,7 +17,8 @@ public class RecourceController : MonoBehaviour {
 	public Text textGameOver;
 	public Desaster desaster;
 	public GameObject smallFish, bigFish;
-	List<GameObject> allSmallFish, allBigFish;
+	List<GameObject> allSmallFish = new List<GameObject> ();
+	List<GameObject> allBigFish = new List<GameObject> ();
 
 	// Use this for initialization
 	void Start () {
@@ -28,6 +29,7 @@ public class RecourceController : MonoBehaviour {
 		smallFishNr = 1;
 		bigFishNr = 0;
 		smallHouseNr = 1;
+		Instantiate (smallFish);
 	}
 
 	public void Stop(){
@@ -39,8 +41,8 @@ public class RecourceController : MonoBehaviour {
 
 	// Update is called once per frame
 	void FixedUpdate () {
-		Debug.Log ("Kleine Fische: " + smallFishNr);
-		Debug.Log ("Große Fische: " + bigFishNr);
+		//Debug.Log ("Kleine Fische: " + smallFishNr);
+		//Debug.Log ("Große Fische: " + bigFishNr);
 
 		if (running){
 			timer++;
@@ -67,16 +69,22 @@ public class RecourceController : MonoBehaviour {
 	}
 
 	public bool IncreaseSmallFishNr(){
-		if (smallFishNr + (bigFishNr * smallToBigFishRatio) >= (smallHouseNr * smallToBigFishRatio) + (bigHouseNr * smallToBigFishRatio * 2)) {
+		Debug.Log ("Increase small Fish");
+		if (plankton < smallFishCost || smallFishNr + (bigFishNr * smallToBigFishRatio) >= (smallHouseNr * smallToBigFishRatio) + (bigHouseNr * smallToBigFishRatio * 2)) {
+			Debug.Log ("false");
 			return false;
 		} else {
 			smallFishNr++;
-			allSmallFish.Add (Instantiate (smallFish));
+			plankton -= smallFishCost;
+			allSmallFish.Add ((GameObject) Instantiate (smallFish));
+			Debug.Log ("true" + smallFishNr);
 			return true;
 		}
 	}
 	public bool IncreaseBigFishNr(){
+		Debug.Log ("Increase BIG Fish");
 		if (smallFishNr + (bigFishNr * smallToBigFishRatio)+ smallToBigFishRatio > (smallHouseNr * smallToBigFishRatio) + (bigHouseNr * smallToBigFishRatio * 2)) {
+			Debug.Log ("false");
 			return false;
 		} else {
 			if (smallFishNr >= smallToBigFishRatio) {
@@ -88,8 +96,10 @@ public class RecourceController : MonoBehaviour {
 					Destroy (temp [i]);
 				}
 				bigFishNr++;
+				Debug.Log ("true" + bigFishNr);
 				return true;
 			} else {
+				Debug.Log ("false");
 				return false;
 			}
 		}
