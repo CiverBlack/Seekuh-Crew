@@ -4004,7 +4004,7 @@ MonoBehaviour:
   seeweedNr: 0
   filterCoralNr: 0
   score: 0
-  smallFishNr: 0
+  smallFishNr: 1
   bigFishNr: 0
   smallHouseNr: 0
   bigHouseNr: 0
@@ -5003,52 +5003,6 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1561376142}
---- !u!1001 &1568126857
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4534876586009156, guid: 6076e78a02a86464d9670eb8e5297bfd, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4534876586009156, guid: 6076e78a02a86464d9670eb8e5297bfd, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4534876586009156, guid: 6076e78a02a86464d9670eb8e5297bfd, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4534876586009156, guid: 6076e78a02a86464d9670eb8e5297bfd, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4534876586009156, guid: 6076e78a02a86464d9670eb8e5297bfd, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4534876586009156, guid: 6076e78a02a86464d9670eb8e5297bfd, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4534876586009156, guid: 6076e78a02a86464d9670eb8e5297bfd, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4534876586009156, guid: 6076e78a02a86464d9670eb8e5297bfd, type: 2}
-      propertyPath: m_RootOrder
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1270805757337890, guid: 6076e78a02a86464d9670eb8e5297bfd, type: 2}
-      propertyPath: m_Name
-      value: Seeweed
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 6076e78a02a86464d9670eb8e5297bfd, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &1595120157
 GameObject:
   m_ObjectHideFlags: 0
@@ -5655,48 +5609,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!1001 &1997629377
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4208590194915942, guid: 916363d9644bd4442a429f000dbffa74, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4208590194915942, guid: 916363d9644bd4442a429f000dbffa74, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4208590194915942, guid: 916363d9644bd4442a429f000dbffa74, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4208590194915942, guid: 916363d9644bd4442a429f000dbffa74, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4208590194915942, guid: 916363d9644bd4442a429f000dbffa74, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4208590194915942, guid: 916363d9644bd4442a429f000dbffa74, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4208590194915942, guid: 916363d9644bd4442a429f000dbffa74, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4208590194915942, guid: 916363d9644bd4442a429f000dbffa74, type: 2}
-      propertyPath: m_RootOrder
-      value: 9
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 916363d9644bd4442a429f000dbffa74, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &2006895750 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1026897708291822, guid: 22a34b3dc326843c89bd909d964801b4,
