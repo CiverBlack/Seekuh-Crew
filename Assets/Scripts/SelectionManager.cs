@@ -32,7 +32,6 @@ public class SelectionManager : MonoBehaviour {
 	}
 	void checkForLeftMouseClick(){
 		if(Input.GetMouseButtonDown(0)){
-			Debug.Log ("Left Mouse Button clicked");
 			selectionRaycast ();
 		}
 	}
@@ -40,7 +39,7 @@ public class SelectionManager : MonoBehaviour {
 	void FixedUpdate(){
 		List<int> delete = new List<int>();
 		for (int i = 0; i < inProzess.Count; i++) {
-			Debug.Log (inProzess [i] + " " + inProzess [i].prozess + " " + (((recourceController.bigFishNr*10)+recourceController.smallFishNr)/inProzess.Count)*prozessPerSecound);
+			//Debug.Log (inProzess [i] + " " + inProzess [i].prozess + " " + (((recourceController.bigFishNr*10)+recourceController.smallFishNr)/inProzess.Count)*prozessPerSecound);
 			inProzess [i].prozess += (((recourceController.bigFishNr*10)+recourceController.smallFishNr)/inProzess.Count)*prozessPerSecound;
 			inProzess [i].gameObject.transform.GetChild (1).GetComponent<TextMesh>().text = inProzess [i].prozess.ToString();
 			if (inProzess [i].prozess >= 100) {
@@ -222,8 +221,6 @@ public class SelectionManager : MonoBehaviour {
 	public void destroyRandom(){
 		if (AllBuildings.Count != 0) {
 			int random = Random.Range (0, AllBuildings.Count - 1);
-			replaceTile (AllBuildings [random], emptyTile);
-			AllBuildings.Remove (AllBuildings [random]);
 			switch (AllBuildings [random].name) {
 			case "HomeCoralLvl1":
 				recourceController.SmallHouseDestroyed ();
@@ -249,6 +246,8 @@ public class SelectionManager : MonoBehaviour {
 				Debug.Log ("Es scheint etwas schiefgegangen zu sein");
 				break;
 			}
+			replaceTile (AllBuildings [random], emptyTile);
+			AllBuildings.Remove (AllBuildings [random]);
 		}
 	}
 }

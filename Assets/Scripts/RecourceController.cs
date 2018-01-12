@@ -29,7 +29,7 @@ public class RecourceController : MonoBehaviour {
 		smallFishNr = 1;
 		bigFishNr = 0;
 		smallHouseNr = 1;
-		Instantiate (smallFish);
+		allSmallFish.Add (Instantiate (smallFish));
 	}
 
 	public void Stop(){
@@ -69,22 +69,17 @@ public class RecourceController : MonoBehaviour {
 	}
 
 	public bool IncreaseSmallFishNr(){
-		Debug.Log ("Increase small Fish");
 		if (plankton < smallFishCost || smallFishNr + (bigFishNr * smallToBigFishRatio) >= (smallHouseNr * smallToBigFishRatio) + (bigHouseNr * smallToBigFishRatio * 2)) {
-			Debug.Log ("false");
 			return false;
 		} else {
 			smallFishNr++;
 			plankton -= smallFishCost;
-			allSmallFish.Add ((GameObject) Instantiate (smallFish));
-			Debug.Log ("true" + smallFishNr);
+			allSmallFish.Add (Instantiate (smallFish));
 			return true;
 		}
 	}
 	public bool IncreaseBigFishNr(){
-		Debug.Log ("Increase BIG Fish");
 		if (smallFishNr + (bigFishNr * smallToBigFishRatio)+ smallToBigFishRatio > (smallHouseNr * smallToBigFishRatio) + (bigHouseNr * smallToBigFishRatio * 2)) {
-			Debug.Log ("false");
 			return false;
 		} else {
 			if (smallFishNr >= smallToBigFishRatio) {
@@ -92,34 +87,45 @@ public class RecourceController : MonoBehaviour {
 				allBigFish.Add (Instantiate (bigFish));
 				List<GameObject> temp = new List<GameObject> (allSmallFish.GetRange(0,smallToBigFishRatio));
 				allSmallFish.RemoveRange (0,smallToBigFishRatio);
-				for (int i = smallToBigFishRatio-1; i >=0; i--) {
+				for (int i = temp.Count-1; i >=0; i--) {
 					Destroy (temp [i]);
 				}
 				bigFishNr++;
-				Debug.Log ("true" + bigFishNr);
 				return true;
 			} else {
-				Debug.Log ("false");
 				return false;
 			}
 		}
 	}
 
 	public void LooseFish (int percent){
-		smallFishNr *= percent / 100;
-		bigFishNr *= percent / 100;
+		double percentDouble = (double)percent / 100.0;
+		int killSmallFish = (int)(smallFishNr * percentDouble);
+		for (int i = 0; i < killSmallFish; i++) {
+			KillSmallFish ();
+		}
+		int killBigFish = (int)(bigFishNr * percentDouble);
+		for (int i = 0; i < killBigFish; i++) {
+			KillBigFish ();
+		}
 	}
 
 	public void KillSmallFish(){
-		smallFishNr--;
-		if (smallFishNr < 0)
-			smallFishNr = 0;
+		if (smallFishNr > 0) {
+			smallFishNr--;
+			GameObject temp = allSmallFish [0];
+			allSmallFish.RemoveAt (0);
+			Destroy (temp);
+		}
 	}
 
 	public void KillBigFish(){
-		bigFishNr--;
-		if (bigFishNr < 0)
-			bigFishNr = 0;
+		if (bigFishNr > 0) {
+			bigFishNr--;
+			GameObject temp = allBigFish [0];
+			allBigFish.RemoveAt (0);
+			Destroy (temp);
+		}
 	}
 
 	public void SmallHouseDestroyed(){

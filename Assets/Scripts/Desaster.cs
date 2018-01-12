@@ -33,7 +33,6 @@ public class Desaster : MonoBehaviour {
 				timeTillDesaster = Random.Range (minTimeTillDesaster*factor, maxTimeTillDesaster*factor);
 				factor--;
 				float random = Random.Range (0, chanceDiver + chanceFisher + chanceOil);
-				Debug.Log (random);
 				if (random < chanceDiver) {
 					panelMessage.SetActive (true);
 					textMesage.text = "Ein Taucher kommt vorbei und zerstört eine deiner Korallen.";
