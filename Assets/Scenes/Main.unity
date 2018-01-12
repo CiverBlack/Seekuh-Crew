@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.5748171, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1021,6 +1021,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1385729151}
         m_MethodName: openMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1385729150}
+        m_MethodName: PauseApplication
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5529,11 +5540,16 @@ Prefab:
     - target: {fileID: 114719793605338792, guid: 22a34b3dc326843c89bd909d964801b4,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: Restart
+      value: RestartApplication
       objectReference: {fileID: 0}
     - target: {fileID: 1026897708291822, guid: 22a34b3dc326843c89bd909d964801b4, type: 2}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224033413805181898, guid: 22a34b3dc326843c89bd909d964801b4,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 160
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 22a34b3dc326843c89bd909d964801b4, type: 2}
@@ -5972,7 +5988,7 @@ GameObject:
   - component: {fileID: 379120563}
   - component: {fileID: 379120562}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Tanker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6702,6 +6718,74 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 495609711}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &520475516
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 520475517}
+  - component: {fileID: 520475519}
+  - component: {fileID: 520475518}
+  m_Layer: 5
+  m_Name: Taucher
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &520475517
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 520475516}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2006895751}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -50, y: -25}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &520475518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 520475516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: 84be4519781009b478711940ea3966bf, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &520475519
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 520475516}
 --- !u!1 &521138886
 GameObject:
   m_ObjectHideFlags: 0
@@ -8029,6 +8113,74 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 870964794}
+--- !u!1 &878355736
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 878355737}
+  - component: {fileID: 878355739}
+  - component: {fileID: 878355738}
+  m_Layer: 5
+  m_Name: Fischer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &878355737
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 878355736}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2006895751}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -50, y: -25}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &878355738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 878355736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: f47b1481974f40f4c84130082b1614cd, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &878355739
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 878355736}
 --- !u!1 &878674957
 GameObject:
   m_ObjectHideFlags: 0
@@ -11283,17 +11435,22 @@ MonoBehaviour:
   homeCoralLvl2: {fileID: 1194039379594210, guid: b73b8fdc30f88e241a100464530a9bce,
     type: 2}
   chalkCoral: {fileID: 1109285287400402, guid: c440da57a23524d099977c1fb54ef4da, type: 2}
-  seeweed: {fileID: 1270805757337890, guid: 6076e78a02a86464d9670eb8e5297bfd, type: 2}
+  seeweed: {fileID: 1737972222904236, guid: 6076e78a02a86464d9670eb8e5297bfd, type: 2}
   filterCoral: {fileID: 1140803308378188, guid: eaa696e7a881d4ee7b22e2804b71947f,
     type: 2}
   emptyTile: {fileID: 1262998582105236, guid: ba40a6f20fe00499e8c1d0d528262e27, type: 2}
-  deadHomeCoralLvl1: {fileID: 0}
-  deadHomeCoralLvl2: {fileID: 0}
-  deadChalkCoral: {fileID: 0}
-  deadSeeweed: {fileID: 0}
-  deadFilterCoral: {fileID: 0}
+  deadHomeCoralLvl1: {fileID: 1197230894500960, guid: c262ad820036a1f489315b6851859ba0,
+    type: 2}
+  deadHomeCoralLvl2: {fileID: 1310338500328282, guid: 2b2156b19e3f14c41a5f79c3ed162650,
+    type: 2}
+  deadChalkCoral: {fileID: 1713944793156470, guid: 6ddba33be91622b4cbb40ab52f9d9f30,
+    type: 2}
+  deadSeeweed: {fileID: 1019522009755506, guid: 630e86025b64bd047b3c3d054e33cdbf,
+    type: 2}
+  deadFilterCoral: {fileID: 1466996759487654, guid: d36f0536aba56644eb2473bd3cb3e6e2,
+    type: 2}
   prozessPerSecound: 1
-  running: 0
+  running: 1
 --- !u!4 &1385729147
 Transform:
   m_ObjectHideFlags: 0
@@ -11366,6 +11523,7 @@ MonoBehaviour:
   desaster: {fileID: 1385729150}
   smallFish: {fileID: 1523956185446592, guid: 916363d9644bd4442a429f000dbffa74, type: 2}
   bigFish: {fileID: 1759085435432864, guid: 13f4fb7432086dc42bfc98a9d88e717d, type: 2}
+  manager: {fileID: 1385729146}
 --- !u!114 &1385729150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11379,6 +11537,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recourceController: {fileID: 1385729149}
   panelMessage: {fileID: 2006895750}
+  tanker: {fileID: 379120560}
+  diver: {fileID: 520475516}
+  fisher: {fileID: 878355736}
   textMesage: {fileID: 1351097649}
   manager: {fileID: 1385729146}
   minTimeTillDesaster: 7
@@ -16037,7 +16198,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1385729150}
-        m_MethodName: Restart
+        m_MethodName: RestartApplication
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16337,7 +16498,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1385729150}
-        m_MethodName: Restart
+        m_MethodName: RestartApplication
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

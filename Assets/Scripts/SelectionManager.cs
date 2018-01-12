@@ -13,7 +13,7 @@ public class SelectionManager : MonoBehaviour {
 	private List<TilesMasterClass> AllBuildings = new List<TilesMasterClass>();
 	private List<TilesMasterClass> inProzess = new List<TilesMasterClass>();
 	public int prozessPerSecound = 1;
-	public bool running;
+	public bool running = true;
 
 
 
@@ -281,6 +281,12 @@ public class SelectionManager : MonoBehaviour {
 				break;
 			}
 			AllBuildings.Remove (AllBuildings [random]);
+		}
+	}
+
+	public void destroyAll(){
+		while (AllBuildings.Count > 0) {
+			destroyRandom ();
 		}
 	}
 }

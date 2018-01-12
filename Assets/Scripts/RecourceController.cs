@@ -19,6 +19,8 @@ public class RecourceController : MonoBehaviour {
 	public GameObject smallFish, bigFish;
 	List<GameObject> allSmallFish = new List<GameObject> ();
 	List<GameObject> allBigFish = new List<GameObject> ();
+	private int tankerNr = 1;
+	public SelectionManager manager;
 
 	// Use this for initialization
 	void Start () {
@@ -48,6 +50,7 @@ public class RecourceController : MonoBehaviour {
 			timer++;
 			if (timer > timerMax) {
 				timer = 0;
+				waterPolution += tankerNr*cleanWaterPerBuilding;
 				chalk += defaultRecources + (buildingRecources * chalkCoralNr*(1-(waterPolution/100)));
 				plankton += (defaultRecources + (buildingRecources * seeweedNr*(1-(waterPolution/100))));
 				waterPolution -= (cleanWaterPerBuilding * filterCoralNr*(1-(waterPolution/100)));
@@ -62,7 +65,7 @@ public class RecourceController : MonoBehaviour {
 			planktonText.text = plankton.ToString();
 			scoreText.text = score.ToString ();
 			dirtWater.color = new Color(1,1,1,((float)waterPolution)/100);
-			if (waterPolution > 100 || bigHouseNr+smallHouseNr <= 0) {
+			if (waterPolution >= 100 || bigHouseNr+smallHouseNr <= 0) {
 				GameOver ();
 			}
 		}
@@ -170,6 +173,9 @@ public class RecourceController : MonoBehaviour {
 
 	public void IncreaseWaterPolution(int amount){
 		waterPolution += amount;
+		if (waterPolution > 100)
+			waterPolution = 100;
+		tankerNr++;
 	}
 
 	public void ChalkCoralDestroyed(){
@@ -219,9 +225,9 @@ public class RecourceController : MonoBehaviour {
 		seeweedNr++;
 	}
 	public void GameOver(){
-		running = false;
-		desaster.timerRunning = false;
+		manager.destroyAll ();
 		panelGameOver.SetActive (true);
 		textGameOver.text = "Das Korallenriff ist leider der Zerstörungswut der Menschen erlegen. Du hast " + score + " Punkte erreicht.";
+		desaster.PauseApplication ();
 	}
 }
