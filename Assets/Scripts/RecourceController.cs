@@ -19,7 +19,7 @@ public class RecourceController : MonoBehaviour {
 	public GameObject smallFish, bigFish;
 	List<GameObject> allSmallFish = new List<GameObject> ();
 	List<GameObject> allBigFish = new List<GameObject> ();
-	private int tankerNr = 1;
+	private int tankerNr = 0;
 	public SelectionManager manager;
 
 	// Use this for initialization

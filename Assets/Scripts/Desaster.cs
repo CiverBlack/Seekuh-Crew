@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Desaster : MonoBehaviour {
 	public RecourceController recourceController;
 	public GameObject panelMessage;
-	public GameObject tanker, diver, fisher;
+	public GameObject tanker, diver, fisher, seecow;
 	public Text textMesage;
 	public SelectionManager manager;
 	public int minTimeTillDesaster, maxTimeTillDesaster, chanceDiver, chanceFisher, chanceOil;
@@ -21,8 +21,9 @@ public class Desaster : MonoBehaviour {
 		tanker.SetActive (false);
 		diver.SetActive (false);
 		fisher.SetActive (false);
+		seecow.SetActive (true);
 		PauseApplication ();
-		textMesage.text = "Rette das Riff:\nHauskoralle: " + recourceController.smallHouseCost + " Kalk und ableveln einer großen Hauskoralle\nHauskoralle aufleveln: " + recourceController.smallHouseCost + " Kalk\nKalkkoralle: " + recourceController.chalkCoralCost + " Kalk\nSeegrass: " + recourceController.seeweedCost + " Kalk\nFilterkoralle: " + recourceController.filterCoralCost + " Kalk\nPapageifisch: " + recourceController.smallFishCost + " Plankton\nTigerhai: " + recourceController.smallToBigFishRatio + " Papageifische";
+		textMesage.text = "Rette das Riff:\nHauskoralle: " + recourceController.smallHouseCost + " Kalk und \nableveln einer großen Hauskoralle\nHauskoralle aufleveln: " + recourceController.levelUpCost + " Kalk\nKalkkoralle: " + recourceController.chalkCoralCost + " Kalk\nSeegrass: " + recourceController.seeweedCost + " Kalk\nFilterkoralle: " + recourceController.filterCoralCost + " Kalk\nPapageifisch: " + recourceController.smallFishCost + " Plankton\nTigerhai: " + recourceController.smallToBigFishRatio + " Papageifische";
 	}
 
 	public void RestartApplication(){
@@ -52,6 +53,7 @@ public class Desaster : MonoBehaviour {
 					tanker.SetActive (false);
 					diver.SetActive (true);
 					fisher.SetActive (false);
+					seecow.SetActive (false);
 					PauseApplication ();
 					textMesage.text = "Ein Taucher kommt vorbei und zerstört eine deiner Korallen.";
 					manager.destroyRandom ();
@@ -61,6 +63,7 @@ public class Desaster : MonoBehaviour {
 						tanker.SetActive (false);
 						diver.SetActive (false);
 						fisher.SetActive (true);
+						seecow.SetActive (false);
 						PauseApplication ();
 						textMesage.text = "Ein Fischerboot fängt einige deiner Fische.";
 						recourceController.LooseFish (20);
@@ -70,6 +73,7 @@ public class Desaster : MonoBehaviour {
 							tanker.SetActive (true);
 							diver.SetActive (false);
 							fisher.SetActive (false);
+							seecow.SetActive (false);
 							PauseApplication ();
 							textMesage.text = "Menschen verschmutzen die Ozeane und die Wasserqualität sinkt.";
 							recourceController.IncreaseWaterPolution (40);

@@ -14,6 +14,8 @@ public class SelectionManager : MonoBehaviour {
 	private List<TilesMasterClass> inProzess = new List<TilesMasterClass>();
 	public int prozessPerSecound = 1;
 	public bool running = true;
+	public int timer = 0;
+	public int timerMax = 60;
 
 
 
@@ -24,6 +26,7 @@ public class SelectionManager : MonoBehaviour {
 		filterCoralButton.interactable = false;
 		LevelUpButton.interactable = false;
 		DestroyButton.interactable = false;
+		timer = timerMax;
 	}
 
 	//Update is called once per frame
@@ -41,33 +44,37 @@ public class SelectionManager : MonoBehaviour {
 
 	void FixedUpdate(){
 		if (running) {
-			List<int> delete = new List<int> ();
-			for (int i = 0; i < inProzess.Count; i++) {
-				//Debug.Log (inProzess [i] + " " + inProzess [i].prozess + " " + (((recourceController.bigFishNr*10)+recourceController.smallFishNr)/inProzess.Count)*prozessPerSecound);
-				inProzess [i].prozess += (((recourceController.bigFishNr * 10) + recourceController.smallFishNr) / inProzess.Count) * prozessPerSecound;
-				inProzess [i].gameObject.transform.GetChild (1).GetComponent<TextMesh> ().text = inProzess [i].prozess.ToString ();
-				if (inProzess [i].prozess >= 100) {
-					AllBuildings.Add (inProzess [i]);
-					delete.Add (i);
-					inProzess [i].gameObject.transform.GetChild (1).gameObject.SetActive (false);
-					if (inProzess [i].name.Equals ("ChalkCoral")) {
-						recourceController.ChalkCoralFinished ();
-					}
-					if (inProzess [i].name.Equals ("FilterCoral")) {
-						recourceController.FilterCoralFinished ();
-					}
-					if (inProzess [i].name.Equals ("Seeweed")) {
-						recourceController.SeeweedFinished ();
-					}
-					if (inProzess [i].name.Equals ("HomeCoralLvl2")) {
-						recourceController.LevelUpFinished ();
+			timer--;
+			if (timer <= 0) {
+				timer = timerMax;
+				List<int> delete = new List<int> ();
+				for (int i = 0; i < inProzess.Count; i++) {
+					//Debug.Log (inProzess [i] + " " + inProzess [i].prozess + " " + (((recourceController.bigFishNr*10)+recourceController.smallFishNr)/inProzess.Count)*prozessPerSecound);
+					inProzess [i].prozess += (((recourceController.bigFishNr * 10) + recourceController.smallFishNr) / inProzess.Count) * prozessPerSecound;
+					inProzess [i].gameObject.transform.GetChild (1).GetComponent<TextMesh> ().text = inProzess [i].prozess.ToString ();
+					if (inProzess [i].prozess >= 100) {
+						AllBuildings.Add (inProzess [i]);
+						delete.Add (i);
+						inProzess [i].gameObject.transform.GetChild (1).gameObject.SetActive (false);
+						if (inProzess [i].name.Equals ("ChalkCoral")) {
+							recourceController.ChalkCoralFinished ();
+						}
+						if (inProzess [i].name.Equals ("FilterCoral")) {
+							recourceController.FilterCoralFinished ();
+						}
+						if (inProzess [i].name.Equals ("Seeweed")) {
+							recourceController.SeeweedFinished ();
+						}
+						if (inProzess [i].name.Equals ("HomeCoralLvl2")) {
+							recourceController.LevelUpFinished ();
+						}
 					}
 				}
+				for (int j = delete.Count - 1; j >= 0; j--) {
+					inProzess.RemoveAt (delete [j]);
+				}
+				delete.Clear ();
 			}
-			for (int j = delete.Count - 1; j >= 0; j--) {
-				inProzess.RemoveAt (delete [j]);
-			}
-			delete.Clear ();
 		}
 	}
 
