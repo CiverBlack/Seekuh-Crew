@@ -21,7 +21,7 @@ public class Desaster : MonoBehaviour {
 	public void RestartApplication(){
 		timerRunning = true;
 		recourceController.Restart();
-		manager.Start ();
+		manager.Restart ();
 	}
 
 	public void PauseApplication(){

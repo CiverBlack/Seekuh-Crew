@@ -74,7 +74,7 @@ public class SelectionManager : MonoBehaviour {
 	public void Stop(){
 		running = false;
 	}
-	public void Start(){
+	public void Restart(){
 		running = true;
 	}
 
