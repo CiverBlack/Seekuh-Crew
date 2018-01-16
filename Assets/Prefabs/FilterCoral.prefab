@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 23880940177323644}
   - component: {fileID: 114344331057930292}
   - component: {fileID: 82347499630173852}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: FilterCoral
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4948209051377820}
   - component: {fileID: 95455855049733332}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: filterkoralle_anim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 33325586125709720}
   - component: {fileID: 64329215900939138}
   - component: {fileID: 23288147321996006}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
