@@ -11,7 +11,7 @@ public class RecourceController : MonoBehaviour {
 	public Text waterPolutionText, chalkText, planktonText, scoreText;
 	public int smallHouseCost, levelUpCost, filterCoralCost, chalkCoralCost, seeweedCost, smallFishCost;
 	public int timerMax = 60;
-	public Image dirtWater; 
+	public Image dirtWater;
 	private bool running = true;
 	public GameObject panelGameOver;
 	public Text textGameOver;
@@ -21,6 +21,10 @@ public class RecourceController : MonoBehaviour {
 	List<GameObject> allBigFish = new List<GameObject> ();
 	private int tankerNr = 0;
 	public SelectionManager manager;
+	private int changeWaterPolution = 0;
+	private int changeChalk = 0;
+	private int changePlankton = 0;
+
 
 	// Use this for initialization
 	void Start () {
@@ -45,24 +49,29 @@ public class RecourceController : MonoBehaviour {
 	void FixedUpdate () {
 		//Debug.Log ("Kleine Fische: " + smallFishNr);
 		//Debug.Log ("Große Fische: " + bigFishNr);
-
 		if (running){
 			timer++;
 			if (timer > timerMax) {
 				timer = 0;
-				waterPolution += tankerNr*cleanWaterPerBuilding;
-				chalk += defaultRecources + (buildingRecources * chalkCoralNr*(1-(waterPolution/100)));
-				plankton += (defaultRecources + (buildingRecources * seeweedNr*(1-(waterPolution/100))));
-				waterPolution -= (cleanWaterPerBuilding * filterCoralNr*(1-(waterPolution/100)));
+				changeWaterPolution = (tankerNr*cleanWaterPerBuilding) - (cleanWaterPerBuilding * filterCoralNr*(1-(waterPolution/100)));
+				changeChalk = defaultRecources + (buildingRecources * chalkCoralNr*(1-(waterPolution/100)));
+				changePlankton = (defaultRecources + (buildingRecources * seeweedNr*(1-(waterPolution/100))));
+				waterPolution += changeWaterPolution;
+				chalk += changeChalk;
+				plankton += changePlankton;
 				if (waterPolution < 0)
 					waterPolution = 0;
 				if (waterPolution > 100)
 					waterPolution = 100;
 				score += ((chalkCoralNr + seeweedNr + filterCoralNr + smallFishNr + (bigFishNr * smallToBigFishRatio) + smallHouseNr + (bigHouseNr * 2))*(1-(waterPolution/100)));
 			}
-			waterPolutionText.text = waterPolution + "%";
-			chalkText.text = chalk.ToString();
-			planktonText.text = plankton.ToString();
+			if (changeWaterPolution < 0){
+				waterPolutionText.text = waterPolution + "% (-" + (int)(Mathf.Sqrt(changeWaterPolution*changeWaterPolution)) + ")";
+			} else {
+				waterPolutionText.text = waterPolution + "% (+" + (int)(Mathf.Sqrt(changeWaterPolution*changeWaterPolution)) + ")";
+			}
+			chalkText.text = chalk.ToString() + "(+" + changeChalk + ")";
+			planktonText.text = plankton.ToString() + "(+" + changePlankton + ")";
 			scoreText.text = score.ToString ();
 			dirtWater.color = new Color(1,1,1,((float)waterPolution)/100);
 			if (waterPolution >= 100 || bigHouseNr+smallHouseNr <= 0) {

@@ -51,7 +51,7 @@ public class SelectionManager : MonoBehaviour {
 				for (int i = 0; i < inProzess.Count; i++) {
 					//Debug.Log (inProzess [i] + " " + inProzess [i].prozess + " " + (((recourceController.bigFishNr*10)+recourceController.smallFishNr)/inProzess.Count)*prozessPerSecound);
 					inProzess [i].prozess += (((recourceController.bigFishNr * 10) + recourceController.smallFishNr) / inProzess.Count) * prozessPerSecound;
-					inProzess [i].gameObject.transform.GetChild (1).GetComponent<TextMesh> ().text = inProzess [i].prozess.ToString ();
+					inProzess [i].gameObject.transform.GetChild (1).GetComponent<TextMesh> ().text = inProzess [i].prozess.ToString () + "%";
 					if (inProzess [i].prozess >= 100) {
 						AllBuildings.Add (inProzess [i]);
 						delete.Add (i);
