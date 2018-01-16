@@ -177,7 +177,7 @@ public class SelectionManager : MonoBehaviour {
 	void putInProzess(TilesMasterClass tile){
 		tile.prozess = 0;
 		tile.gameObject.transform.GetChild (1).gameObject.SetActive(true);
-		tile.gameObject.transform.GetChild (1).GetComponent<TextMesh>().text = tile.prozess.ToString();
+		tile.gameObject.transform.GetChild (1).GetComponent<TextMesh>().text = tile.prozess.ToString() + "%";
 		inProzess.Add (tile);
 	}
 	void seeweedButtonClicked(){
@@ -208,7 +208,7 @@ public class SelectionManager : MonoBehaviour {
 		mostRecentTile.transform.parent = this.gameObject.transform;
 		mostRecentTile.name = newTile.name;
 		mostRecentTile.GetComponent<Collider>().gameObject.GetComponent<TilesMasterClass> ().Deselect ();
-	} 
+	}
 	void replaceTile(TilesMasterClass oldTile, GameObject newTile, string name){
 		Vector3 position = oldTile.gameObject.transform.position;
 		Destroy (oldTile.gameObject);
@@ -216,7 +216,7 @@ public class SelectionManager : MonoBehaviour {
 		mostRecentTile.transform.parent = this.gameObject.transform;
 		mostRecentTile.name = name;
 		mostRecentTile.GetComponent<Collider>().gameObject.GetComponent<TilesMasterClass> ().Deselect ();
-	} 
+	}
 	void replaceTile(GameObject newTile, string name){
 		Vector3 position = selected.gameObject.transform.position;
 		Destroy (selected.gameObject);
@@ -225,7 +225,7 @@ public class SelectionManager : MonoBehaviour {
 		mostRecentTile.name = name;
 		mostRecentTile.GetComponent<Collider>().gameObject.GetComponent<TilesMasterClass> ().Select ();
 		selected = mostRecentTile.GetComponent<TilesMasterClass> ();
-	} 
+	}
 	void destroyButtonClicked(){
 		Debug.Log ("Destroy" + selected.name);
 		if (selected.name.Equals ("HomeCoralLvl1")) {
@@ -273,7 +273,7 @@ public class SelectionManager : MonoBehaviour {
 				recourceController.ChalkCoralDestroyed ();
 				break;
 
-			case "FilterCoral":	
+			case "FilterCoral":
 				replaceTile (AllBuildings [random], deadFilterCoral, "EmptyTile");
 				recourceController.FilterCoralDestroyed ();
 				break;

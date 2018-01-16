@@ -37,7 +37,7 @@ public class Desaster : MonoBehaviour {
 		recourceController.Stop ();
 		manager.Stop ();
 	}
-	
+
 	// Update is called once per frame
 	void FixedUpdate () {
 		if (timerRunning){

@@ -144,10 +144,10 @@ public class RecourceController : MonoBehaviour {
 		smallHouseNr--;
 		if (smallHouseNr < 0)
 			smallHouseNr = 0;
-		while (smallFishNr + (bigFishNr * smallToBigFishRatio) >= (smallHouseNr * smallToBigFishRatio) + (bigHouseNr * smallToBigFishRatio * 2) && smallFishNr > 0) {
+		while (smallFishNr + (bigFishNr * smallToBigFishRatio) > (smallHouseNr * smallToBigFishRatio) + (bigHouseNr * smallToBigFishRatio * 2) && smallFishNr > 0) {
 			KillSmallFish ();
 		}
-		while (smallFishNr + (bigFishNr * smallToBigFishRatio) >= (smallHouseNr * smallToBigFishRatio) + (bigHouseNr * smallToBigFishRatio * 2) && bigFishNr > 0) {
+		while (smallFishNr + (bigFishNr * smallToBigFishRatio) > (smallHouseNr * smallToBigFishRatio) + (bigHouseNr * smallToBigFishRatio * 2) && bigFishNr > 0) {
 			KillBigFish ();
 		}
 	}
